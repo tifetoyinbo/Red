@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaijaSky GDS - Nigerian Aviation & Hospitality System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #008751;
+            --primary-dark: #006b41;
+            --secondary: #1a1a2e;
+            --accent: #ff6b35;
+            --white: #ffffff;
+            --gray-100: #f8fafc;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #16213e 100%);
+            color: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .stat-card {
+            background: var(--gray-100);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .content-area {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-panel {
+            background: linear-gradient(135deg, var(--gray-100) 0%, #f1f5f9 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        .form-input, .form-select {
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 135, 81, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .flight-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 1.5rem;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .flight-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .airline-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--white);
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        .arik { background: #dc2626; }
+        .peace { background: #1e40af; }
+        .ibom { background: #047857; }
+
+        .flight-route {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .airport-code {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .airport-name {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .flight-arrow {
+            color: var(--gray-300);
+            font-size: 1.5rem;
+        }
+
+        .flight-details {
+            text-align: center;
+        }
+
+        .flight-time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .flight-duration {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .price-section {
+            text-align: right;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price-currency {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .seats-left {
+            font-size: 0.75rem;
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .booking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #16213e 100%);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .passenger-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .pnr-display {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .pnr-code {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            font-family: monospace;
+        }
+
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hotel-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .hotel-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--gray-300) 0%, var(--gray-200) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .hotel-info {
+            padding: 1.5rem;
+        }
+
+        .hotel-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hotel-location {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hotel-amenities {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .amenity-tag {
+            background: var(--gray-100);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .hotel-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .admin-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .admin-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .admin-card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .flight-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .mini-flight {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-full {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        @media (max-width: 968px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flight-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">✈️</div>
+                <span>NaijaSky GDS</span>
+            </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('flights')">✈️ Flights</button>
+                <button class="nav-tab" onclick="switchTab('hotels')">🏨 Hotels</button>
+                <button class="nav-tab" onclick="switchTab('admin')">⚙️ Operations</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="dashboard-grid">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">System Status</div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeFlights">12</div>
+                        <div class="stat-label">Active Flights Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalBookings">48</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">₦2.4M</div>
+                        <div class="stat-label">Revenue Today</div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Quick Stats</div>
+                    <div class="stat-card" style="border-left-color: #dc2626;">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Arik Air Load Factor</div>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #1e40af;">
+                        <div class="stat-value">92%</div>
+                        <div class="stat-label">Air Peace Load Factor</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Network</div>
+                    <div style="font-size: 0.875rem; color: var(--gray-600); line-height: 1.6;">
+                        <div>🇳🇬 Lagos (LOS) - MMIA</div>
+                        <div>🇳🇬 Abuja (ABV) - Nnamdi Azikiwe</div>
+                        <div>🇳🇬 Port Harcourt (PHC)</div>
+                        <div>🇳🇬 Enugu (ENU) - Akanu Ibiam</div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="content-area">
+                <!-- Flights Tab -->
+                <div id="flightsTab" class="tab-content">
+                    <h2 style="margin-bottom: 1.5rem; color: var(--secondary);">Flight Search & Booking</h2>
+                    
+                    <div class="search-panel">
+                        <form class="search-form" onsubmit="searchFlights(event)">
+                            <div class="form-group">
+                                <label class="form-label">From</label>
+                                <select class="form-select" id="fromCity" required>
+                                    <option value="">Select Origin</option>
+                                    <option value="LOS">Lagos (LOS)</option>
+                                    <option value="ABV">Abuja (ABV)</option>
+                                    <option value="PHC">Port Harcourt (PHC)</option>
+                                    <option value="ENU">Enugu (ENU)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">To</label>
+                                <select class="form-select" id="toCity" required>
+                                    <option value="">Select Destination</option>
+                                    <option value="LOS">Lagos (LOS)</option>
+                                    <option value="ABV">Abuja (ABV)</option>
+                                    <option value="PHC">Port Harcourt (PHC)</option>
+                                    <option value="ENU">Enugu (ENU)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" class="form-input" id="flightDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Passengers</label>
+                                <select class="form-select" id="passengers">
+                                    <option value="1">1 Passenger</option>
+                                    <option value="2">2 Passengers</option>
+                                    <option value="3">3 Passengers</option>
+                                    <option value="4">4 Passengers</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Search Flights
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="flightResults" class="results-grid">
+                        <!-- Flight results populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Hotels Tab -->
+                <div id="hotelsTab" class="tab-content hidden">
+                    <h2 style="margin-bottom: 1.5rem; color: var(--secondary);">Hotel Reservations</h2>
+                    
+                    <div class="search-panel">
+                        <form class="search-form" onsubmit="searchHotels(event)">
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <select class="form-select" id="hotelCity" required>
+                                    <option value="all">All Cities</option>
+                                    <option value="LOS">Lagos</option>
+                                    <option value="ABV">Abuja</option>
+                                    <option value="PHC">Port Harcourt</option>
+                                    <option value="ENU">Enugu</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Check-in</label>
+                                <input type="date" class="form-input" id="checkIn" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Check-out</label>
+                                <input type="date" class="form-input" id="checkOut" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search Hotels</button>
+                        </form>
+                    </div>
+
+                    <div id="hotelResults" class="hotel-grid">
+                        <!-- Hotel results populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Admin Tab -->
+                <div id="adminTab" class="tab-content hidden">
+                    <h2 style="margin-bottom: 1.5rem; color: var(--secondary);">Operations Control</h2>
+                    
+                    <div class="admin-panel">
+                        <div class="admin-card">
+                            <h3>🛫 Flight Schedule</h3>
+                            <div class="flight-list" id="adminFlightList">
+                                <!-- Admin flight list -->
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card">
+                            <h3>📊 Today's Performance</h3>
+                            <div style="space-y: 1rem;">
+                                <div style="margin-bottom: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span>Arik Air</span>
+                                        <span>₦890K</span>
+                                    </div>
+                                    <div style="height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 65%; height: 100%; background: #dc2626;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span>Air Peace</span>
+                                        <span>₦1.2M</span>
+                                    </div>
+                                    <div style="height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 85%; height: 100%; background: #1e40af;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span>Ibom Air</span>
+                                        <span>₦310K</span>
+                                    </div>
+                                    <div style="height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 45%; height: 100%; background: #047857;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>🏨 Hotel Occupancy</h3>
+                            <div id="hotelOccupancy">
+                                <!-- Hotel occupancy stats -->
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>⚡ Quick Actions</h3>
+                            <div style="display: grid; gap: 0.75rem;">
+                                <button class="btn btn-primary" onclick="generateReport()">Generate Report</button>
+                                <button class="btn btn-secondary" onclick="syncInventory()">Sync Inventory</button>
+                                <button class="btn btn-success" onclick="exportData()">Export Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Complete Booking</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">Flight: <span id="modalFlightInfo"></span></p>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm" onsubmit="confirmBooking(event)">
+                    <div class="passenger-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Title</label>
+                                <select class="form-select" required>
+                                    <option>Mr</option>
+                                    <option>Mrs</option>
+                                    <option>Ms</option>
+                                    <option>Dr</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" placeholder="Chukwuemeka" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" placeholder="Okonkwo" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" placeholder="passenger@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-input" placeholder="+234 801 234 5678" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Seat Preference</label>
+                            <select class="form-select">
+                                <option>Window</option>
+                                <option>Aisle</option>
+                                <option>Middle</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()" style="flex: 1;">Cancel</button>
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">Confirm Booking</button>
+                    </div>
+                </form>
+                <div id="pnrDisplay" class="pnr-display hidden">
+                    <div style="font-size: 0.875rem; margin-bottom: 0.5rem;">BOOKING CONFIRMED</div>
+                    <div class="pnr-code" id="pnrCode">ABC123</div>
+                    <div style="margin-top: 1rem; font-size: 0.875rem;">
+                        Please save this PNR. Check-in opens 24 hours before departure.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Operation completed successfully</div>
+
+    <script>
+        // Data Models
+        const airlines = {
+            AR: { name: 'Arik Air', code: 'AR', color: 'arik', base: 'LOS' },
+            P4: { name: 'Air Peace', code: 'P4', color: 'peace', base: 'LOS' },
+            QI: { name: 'Ibom Air', code: 'QI', color: 'ibom', base: 'PHC' }
+        };
+
+        const cities = {
+            LOS: { name: 'Lagos', airport: 'Murtala Muhammed Intl', code: 'LOS' },
+            ABV: { name: 'Abuja', airport: 'Nnamdi Azikiwe Intl', code: 'ABV' },
+            PHC: { name: 'Port Harcourt', airport: 'Port Harcourt Intl', code: 'PHC' },
+            ENU: { name: 'Enugu', airport: 'Akanu Ibiam Intl', code: 'ENU' }
+        };
+
+        const hotels = [
+            { id: 'H1', name: 'Transcorp Hilton Abuja', city: 'ABV', stars: 5, price: 95000, amenities: ['Pool', 'SPA', 'Gym', 'Free WiFi'] },
+            { id: 'H2', name: 'Sheraton Abuja Hotel', city: 'ABV', stars: 4, price: 72000, amenities: ['Pool', 'Business Center', 'Restaurant'] },
+            { id: 'H3', name: 'Eko Hotel & Suites', city: 'LOS', stars: 5, price: 88000, amenities: ['Pool', 'Beach Access', 'SPA', 'Gym'] },
+            { id: 'H4', name: 'Oriental Hotel Lagos', city: 'LOS', stars: 5, price: 82000, amenities: ['Pool', 'Rooftop Bar', 'Gym'] },
+            { id: 'H5', name: 'Golden Tulip PHC', city: 'PHC', stars: 4, price: 55000, amenities: ['Pool', 'Restaurant', 'Free WiFi'] },
+            { id: 'H6', name: 'Novotel PHC', city: 'PHC', stars: 4, price: 48000, amenities: ['Pool', 'Business Center'] },
+            { id: 'H7', name: 'Hotel Presidential Enugu', city: 'ENU', stars: 4, price: 42000, amenities: ['Pool', 'Restaurant'] },
+            { id: 'H8', name: 'Enugu Golf Estate Hotel', city: 'ENU', stars: 3, price: 28000, amenities: ['Golf', 'Restaurant'] }
+        ];
+
+        let flights = [];
+        let bookings = [];
+        let selectedFlight = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            generateFlights();
+            setupDateInputs();
+            renderAdminFlights();
+            renderHotelOccupancy();
+        });
+
+        function setupDateInputs() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('flightDate').value = today;
+            document.getElementById('flightDate').min = today;
+            document.getElementById('checkIn').value = today;
+            document.getElementById('checkIn').min = today;
+            document.getElementById('checkOut').value = today;
+        }
+
+        function generateFlights() {
+            const routes = [
+                ['LOS', 'ABV'], ['ABV', 'LOS'],
+                ['LOS', 'PHC'], ['PHC', 'LOS'],
+                ['ABV', 'PHC'], ['PHC', 'ABV'],
+                ['LOS', 'ENU'], ['ENU', 'LOS'],
+                ['ABV', 'ENU'], ['ENU', 'ABV']
+            ];
+
+            const times = ['06:00', '09:30', '13:00', '16:30', '19:00'];
+            
+            flights = [];
+            let id = 100;
+
+            routes.forEach(([from, to]) => {
+                Object.values(airlines).forEach((airline, idx) => {
+                    times.forEach((time, timeIdx) => {
+                        if ((id + idx + timeIdx) % 3 === 0) return; // Skip some flights for realism
+                        
+                        const duration = 45 + Math.floor(Math.random() * 40);
+                        const basePrice = from === 'LOS' && to === 'ABV' ? 45000 : 
+                                        from === 'ABV' && to === 'LOS' ? 48000 :
+                                        from === 'LOS' && to === 'PHC' ? 38000 :
+                                        from === 'PHC' && to === 'LOS' ? 40000 :
+                                        from === 'ABV' && to === 'PHC' ? 35000 :
+                                        from === 'PHC' && to === 'ABV' ? 37000 :
+                                        32000 + Math.floor(Math.random() * 15000);
+                        
+                        const flight = {
+                            id: `${airline.code}${id}`,
+                            airline: airline,
+                            from: cities[from],
+                            to: cities[to],
+                            departure: time,
+                            duration: duration,
+                            price: basePrice + (Math.floor(Math.random() * 5000)),
+                            seats: 12 + Math.floor(Math.random() * 20),
+                            aircraft: ['B737-800', 'A320', 'CRJ900'][Math.floor(Math.random() * 3)]
+                        };
+                        flights.push(flight);
+                        id++;
+                    });
+                });
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`${tab}Tab`).classList.remove('hidden');
+            event.target.classList.add('active');
+        }
+
+        function searchFlights(e) {
+            e.preventDefault();
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            const date = document.getElementById('flightDate').value;
+
+            if (from === to) {
+                showToast('Origin and destination cannot be the same');
+                return;
+            }
+
+            const results = flights.filter(f => f.from.code === from && f.to.code === to);
+            renderFlights(results, date);
+        }
+
+        function renderFlights(flights, date) {
+            const container = document.getElementById('flightResults');
+            
+            if (flights.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--gray-600);">No flights found for this route. Try different dates or cities.</div>';
+                return;
+            }
+
+            container.innerHTML = flights.map(flight => `
+                <div class="flight-card" onclick="openBooking('${flight.id}')">
+                    <div class="airline-logo ${flight.airline.color}">
+                        ${flight.airline.code}
+                    </div>
+                    <div class="flight-route">
+                        <div>
+                            <div class="airport-code">${flight.from.code}</div>
+                            <div class="airport-name">${flight.from.name}</div>
+                        </div>
+                        <div class="flight-arrow">→</div>
+                        <div>
+                            <div class="airport-code">${flight.to.code}</div>
+                            <div class="airport-name">${flight.to.name}</div>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-time">${flight.departure}</div>
+                        <div class="flight-duration">${flight.duration} mins • ${flight.aircraft}</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="price">₦${flight.price.toLocaleString()}</div>
+                        <div class="price-currency">per person</div>
+                        <div class="seats-left">${flight.seats} seats left</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openBooking(flightId) {
+            selectedFlight = flights.find(f => f.id === flightId);
+            if (!selectedFlight) return;
+
+            document.getElementById('modalFlightInfo').textContent = 
+                `${selectedFlight.airline.name} ${selectedFlight.id} • ${selectedFlight.from.code} to ${selectedFlight.to.code} • ${selectedFlight.departure}`;
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('pnrDisplay').classList.add('hidden');
+            document.getElementById('bookingForm').classList.remove('hidden');
+            document.getElementById('bookingForm').reset();
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            selectedFlight = null;
+        }
+
+        function confirmBooking(e) {
+            e.preventDefault();
+            
+            const pnr = generatePNR();
+            const booking = {
+                pnr: pnr,
+                flight: selectedFlight,
+                date: new Date().toISOString(),
+                passenger: e.target.querySelector('input[placeholder="Chukwuemeka"]').value + ' ' + 
+                          e.target.querySelector('input[placeholder="Okonkwo"]').value
+            };
+            
+            bookings.push(booking);
+            
+            // Update seats
+            selectedFlight.seats--;
+            document.getElementById('totalBookings').textContent = bookings.length;
+            
+            // Show PNR
+            document.getElementById('pnrCode').textContent = pnr;
+            document.getElementById('bookingForm').classList.add('hidden');
+            document.getElementById('pnrDisplay').classList.remove('hidden');
+            
+            showToast('Booking confirmed! PNR: ' + pnr);
+            
+            // Refresh flight display if visible
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            if (from && to) {
+                const results = flights.filter(f => f.from.code === from && f.to.code === to);
+                renderFlights(results, document.getElementById('flightDate').value);
+            }
+        }
+
+        function generatePNR() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let pnr = '';
+            for (let i = 0; i < 6; i++) {
+                pnr += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return pnr;
+        }
+
+        function searchHotels(e) {
+            e.preventDefault();
+            const city = document.getElementById('hotelCity').value;
+            
+            let results = hotels;
+            if (city !== 'all') {
+                results = hotels.filter(h => h.city === city);
+            }
+            
+            renderHotels(results);
+        }
+
+        function renderHotels(hotels) {
+            const container = document.getElementById('hotelResults');
+            container.innerHTML = hotels.map(hotel => `
+                <div class="hotel-card">
+                    <div class="hotel-image">🏨</div>
+                    <div class="hotel-info">
+                        <div class="hotel-name">${hotel.name}</div>
+                        <div class="hotel-location">📍 ${cities[hotel.city].name}</div>
+                        <div class="hotel-amenities">
+                            ${hotel.amenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+                        </div>
+                        <div class="hotel-price">
+                            <div>
+                                <div style="font-size: 0.875rem; color: var(--gray-600);">per night</div>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">₦${hotel.price.toLocaleString()}</div>
+                            </div>
+                            <button class="btn btn-primary" onclick="bookHotel('${hotel.id}')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function bookHotel(hotelId) {
+            const hotel = hotels.find(h => h.id === hotelId);
+            showToast(`Hotel booking initiated: ${hotel.name}`);
+        }
+
+        function renderAdminFlights() {
+            const container = document.getElementById('adminFlightList');
+            const todayFlights = flights.slice(0, 10);
+            
+            container.innerHTML = todayFlights.map(f => `
+                <div class="mini-flight">
+                    <div>
+                        <strong>${f.airline.code}${f.id}</strong> ${f.from.code}-${f.to.code}
+                        <div style="font-size: 0.75rem; color: var(--gray-600);">${f.departure}</div>
+                    </div>
+                    <span class="status-badge ${f.seats > 0 ? 'status-active' : 'status-full'}">
+                        ${f.seats > 0 ? 'Active' : 'Full'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function renderHotelOccupancy() {
+            const container = document.getElementById('hotelOccupancy');
+            const occupancy = [
+                { name: 'Transcorp Hilton', rate: 85 },
+                { name: 'Eko Hotel', rate: 92 },
+                { name: 'Golden Tulip PHC', rate: 65 },
+                { name: 'Presidential Enugu', rate: 45 }
+            ];
+            
+            container.innerHTML = occupancy.map(h => `
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                        <span>${h.name}</span>
+                        <span>${h.rate}%</span>
+                    </div>
+                    <div style="height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden;">
+                        <div style="width: ${h.rate}%; height: 100%; background: ${h.rate > 80 ? 'var(--success)' : h.rate > 50 ? 'var(--warning)' : 'var(--danger)'};"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function generateReport() {
+            showToast('Generating daily operations report...');
+            setTimeout(() => {
+                const report = {
+                    date: new Date().toLocaleDateString(),
+                    totalFlights: flights.length,
+                    totalBookings: bookings.length,
+                    revenue: bookings.reduce((sum, b) => sum + b.flight.price, 0),
+                    topRoute: 'LOS-ABV'
+                };
+                console.log('Report generated:', report);
+                showToast('Report downloaded: NaijaSky_Ops_Report.pdf');
+            }, 1500);
+        }
+
+        function syncInventory() {
+            showToast('Syncing inventory with airline systems...');
+            setTimeout(() => showToast('Inventory synchronized successfully'), 1000);
+        }
+
+        function exportData() {
+            const data = {
+                flights: flights,
+                bookings: bookings,
+                timestamp: new Date().toISOString()
+            };
+            console.log('Export data:', data);
+            showToast('Data exported to GDS_Export.json');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Close modal on outside click
+        document.getElementById('bookingModal').addEventListener('click', (e) => {
+            if (e.target.id === 'bookingModal') closeModal();
+        });
+    </script>
+</body>
+</html>
